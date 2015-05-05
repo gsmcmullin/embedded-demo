@@ -11,7 +11,7 @@ OBJ = $(CSRC:.c=.o)
 
 all: demo.hex demo.srec
 
-demo.elf: $(OBJ)
+demo.elf: libopencm3 $(OBJ)
 	$(CC) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 
 %.hex: %.elf
@@ -20,8 +20,17 @@ demo.elf: $(OBJ)
 %.srec: %.elf
 	$(OBJCOPY) -O srec $< $@
 
+.PHONY: libopencm3
+libopencm3:
+	if [ ! -f libopencm3/Makefile ]; then \
+		git submodule init; \
+		git submodule update; \
+	fi
+	$(MAKE) -C libopencm3 lib/stm32/f1
+
 .PHONY: clean
 clean:
+	-$(MAKE) -C libopencm3 clean
 	-rm -rf *.o *.elf *.hex *.srec
 
 -include *.d
