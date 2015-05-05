@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -g3 -O0 -MD $(CPUFLAGS) \
          -DSTM32F1 -Ilibopencm3/include
 LDFLAGS = $(CPUFLAGS) -nostartfiles \
           -Llibopencm3/lib -Wl,-T,lisa-m.ld
-LDLIBS = -lopencm3_stm32f1 -lc -lnosys
+LDLIBS = -lopencm3_stm32f1 --specs=rdimon.specs
 
 CSRC = demo.c
 OBJ = $(CSRC:.c=.o)

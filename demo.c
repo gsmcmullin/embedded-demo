@@ -3,6 +3,11 @@
 int main(void)
 {
 	int counter = 0;
+
+	/* Initialise semihosting file descriptors. */
+	extern void initialise_monitor_handles(void);
+	initialise_monitor_handles();
+
 	while (1) {
 		int a, b;
 		printf("Iteration %d\n", ++counter);
