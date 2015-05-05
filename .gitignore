@@ -1,4 +1,6 @@
-demo
+*.elf
+*.hex
+*.srec
 *.o
 *.d
 .*.sw*
