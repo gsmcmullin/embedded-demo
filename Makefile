@@ -2,10 +2,12 @@ CROSS_COMPILE = arm-none-eabi-
 CC = $(CROSS_COMPILE)gcc
 OBJCOPY = $(CROSS_COMPILE)objcopy
 CPUFLAGS = -mcpu=cortex-m3 -mthumb
-CFLAGS = -Wall -Wextra -g3 -O0 -MD $(CPUFLAGS) \
-         -DSTM32F1 -Ilibopencm3/include
+CFLAGS = -Wall -Wextra -g3 -Os -MD $(CPUFLAGS) \
+         -DSTM32F1 -Ilibopencm3/include \
+         -ffunction-sections -fdata-sections
 LDFLAGS = $(CPUFLAGS) -nostartfiles \
-          -Llibopencm3/lib -Wl,-T,lisa-m.ld
+          -Llibopencm3/lib -Wl,-T,lisa-m.ld \
+          --specs=nano.specs -Wl,--gc-sections
 LDLIBS = -lopencm3_stm32f1 -lc -lnosys
 
 CSRC = demo.c
